@@ -1,0 +1,6 @@
+Flask
+yahoo-oauth
+yahoo-fantasy-api
+Werkzeug==2.2.*
+google-cloud-firestore
+gunicorn

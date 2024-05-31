@@ -6,4 +6,11 @@ This repository was created for my final project that involves with building a f
 
 ## Technologies Required:
 - gcloud account
-- Python (use requirements.txt to get all the libraries neeed)
+- Python
+    - Required Libraries (Can use requirements.txt)
+        - Flask
+        - yahoo-oauth
+        - yahoo-fantasy-api
+        - Werkzeug==2.2.*
+        - google-cloud-firestore
+        - gunicorn
