@@ -10,7 +10,7 @@ class Index(MethodView):
         sc = OAuth2(None, None, from_file='oauth2.json')
         gm = yfa.Game(sc, 'nba')
         # Get league ID
-        leagues = gm.league_ids(2023)
+        leagues = gm.league_ids()
         lg = gm.to_league(leagues[0])
         player_stats = lg.player_stats([5352], 'average_season')
         player_position = lg.player_details([5352])

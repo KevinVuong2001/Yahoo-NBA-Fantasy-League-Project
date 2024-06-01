@@ -8,6 +8,7 @@ from index import Index
 app = flask.Flask(__name__) #Our Flask app
 
 app.add_url_rule('/', view_func=Index.as_view('index'), methods=["GET"])
+app.add_url_rule('/draft', view_func=Index.as_view('draft'), methods=["GET"])
 
 
 if __name__ == '__main__':
