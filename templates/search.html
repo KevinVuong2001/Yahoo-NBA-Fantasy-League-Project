@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Player Search</h2>
+    <h3>Search player by name</h3>
+    <form action="{{ url_for('search') }}" method="POST">
+        <input type="text" name="query" placeholder="Enter player name">
+        <button type="submit">Search</button>
+    </form>
+    <table>
+        <tr>
+            <th>Name </th>
+            <th>Primary Position </th>
+            <th>Eligible Position</th>
+            <th>FG% </th>
+            <th>FT% </th>
+            <th>3PTM </th>
+            <th>PTS </th>
+            <th>REB </th>
+            <th>AST </th>
+            <th>ST </th>
+            <th>BLK </th>
+            <th>TO </th>
+            <th>Percent Owned</th>
+        </tr>
+        {% for player in results %}
+            <tr>
+                <td>{{ player }}</td>
+                <td>{{ results[player]['primary_position'] }}</td>
+                <td>{{ results[player]['eligible_position'] }}</td>
+                <td>{{ results[player]['FG'] }}</td>
+                <td>{{ results[player]['FT'] }}</td>
+                <td>{{ results[player]['3PTM'] }}</td>
+                <td>{{ results[player]['PTS'] }}</td>
+                <td>{{ results[player]['REB'] }}</td>
+                <td>{{ results[player]['AST'] }}</td>
+                <td>{{ results[player]['ST'] }}</td>
+                <td>{{ results[player]['BLK'] }}</td>
+                <td>{{ results[player]['TO'] }}</td>
+                {% if 'percent_own' in results[player] %}
+                    <td>{{ results[player]['percent_own'] }}</td>
+                {% else %}
+                    <td>0</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
