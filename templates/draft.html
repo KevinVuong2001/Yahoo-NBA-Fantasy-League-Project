@@ -1,25 +1,35 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>Draft Board</h2>
-    {% for round_number, round_data in draft_board.items() %}
-        <h3>Round {{ round_number }}</h3>
-        <table>
-            <tr>
-                <th>Pick #</th>
-                <th>Player</th>
-                <th>Team</th>
-                <th>Percent Owned</th>
-            </tr>
-            {% for pick_number, pick_data in round_data.items() %}
-                <tr>
-                    <td>{{ pick_number }}</td>
-                    <td>{{ pick_data[0] }}</td>
-                    <td>{{ pick_data[1] }}</td>
-                    <td>{{ pick_data[2] }}</td>
-                </tr>
+    <h1 class="mb-4 text-center">Draft Board</h2>
+    <div class="container">
+        <div class="row">
+            {% for round_number, round_data in draft_board.items() %}
+                <div class="col-md-6 mb-4">
+                    <div class="table-responsive">
+                        <h2 class="text-center mb-4">Round {{ round_number }}</h3>
+                        <table class="table table-bordered table-hover table-striped mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Pick #</th>
+                                    <th>Player</th>
+                                    <th>Team</th>
+                                    <th>Percent Owned</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pick_number, pick_data in round_data.items() %}
+                                    <tr>
+                                        <td>{{ pick_number }}</td>
+                                        <td>{{ pick_data[0] }}</td>
+                                        <td>{{ pick_data[1] }}</td>
+                                        <td>{{ pick_data[2] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             {% endfor %}
-        </table>
-    {% endfor %}
-    <p>{{ entries }}</p>
+        </div>
+    </div>
 {% endblock %}
-
