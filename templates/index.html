@@ -40,14 +40,14 @@
                         <tbody>
                             {% for team in standings %}
                                 <tr>
-                                    <td>{{ standings[team]['final_rank'] }} </td>
-                                    <td>{{ standings[team]['regular_rank'] }}</td>
+                                    <td class="rank">{{ standings[team]['final_rank'] }} </td>
+                                    <td class="rank">{{ standings[team]['regular_rank'] }}</td>
                                     <td>{{ team }}</td>
-                                    <td>{{ standings[team]['wins'] }}</td>
-                                    <td>{{ standings[team]['losses'] }}</td>
-                                    <td>{{ standings[team]['ties'] }}</td>
-                                    <td>{{ standings[team]['win_percent'] }}</td>
-                                    <td>{{ standings[team]['games_back'] }}</td>
+                                    <td class="number">{{ standings[team]['wins'] }}</td>
+                                    <td class="number">{{ standings[team]['losses'] }}</td>
+                                    <td class="number">{{ standings[team]['ties'] }}</td>
+                                    <td class="number">{{ standings[team]['win_percent'] }}</td>
+                                    <td class="number">{{ standings[team]['games_back'] }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

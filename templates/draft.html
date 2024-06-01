@@ -19,10 +19,10 @@
                             <tbody>
                                 {% for pick_number, pick_data in round_data.items() %}
                                     <tr>
-                                        <td>{{ pick_number }}</td>
+                                        <td class="rank">{{ pick_number }}</td>
                                         <td>{{ pick_data[0] }}</td>
                                         <td>{{ pick_data[1] }}</td>
-                                        <td>{{ pick_data[2] }}</td>
+                                        <td class="number">{{ pick_data[2] }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

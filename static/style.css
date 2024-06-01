@@ -7,7 +7,7 @@
 }
 
 .nav-button {
-    background-color: #212529
+    background-color: #212529;
 }
 
 .nav-link:hover {
@@ -20,7 +20,15 @@
 }
 
 .sortable:hover{
-    cursor: pointer
+    cursor: pointer;
+}
+
+.number {
+    text-align: right;
+}
+
+.rank {
+    text-align: center;
 }
 
 .dataTables_wrapper .dataTables_paginate {
