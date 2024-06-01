@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<title>My Fantasy NBA</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<body>
+    <div class="header">
+        <h1>Welcome to My Fantasy NBA</h1>
+        <div class="navigation">
+            <a href="{{ url_for('index') }}" class="button">Draft</a>
+            <a href="{{ url_for('index') }}" class="button">Free Agent</a>
+        </div>
+    </div>
+    <div class=page>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

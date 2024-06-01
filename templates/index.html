@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Fantasy NBA</h2>
+    <h3>Player Stats</h3>
+    <table>
+        <tr>
+            <th>Name </th>
+            <th>Position </th>
+            <th>FG% </th>
+            <th>FT% </th>
+            <th>3PTM </th>
+            <th>PTS </th>
+            <th>REB </th>
+            <th>AST </th>
+            <th>ST </th>
+            <th>BLK </th>
+            <th>TO </th>
+        </tr>
+        <tr>
+        {% for stat in player_stats %}
+            {% for key, value in stat.items() if key != 'player_id' %}
+                    <td>{{ value }}</td>
+            {% endfor %}
+        {% endfor %}
+        </tr>
+    </table>
+{% endblock %}
