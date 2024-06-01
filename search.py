@@ -77,7 +77,7 @@ class Search(MethodView):
                 percent_owned = 0
             search_result[player_name]['percent_own'] = percent_own
         sorted_search_result = dict(sorted(search_result.items(), key=lambda item: item[1].get('percent_own', 0), reverse=True))
-        return render_template('search.html', results=sorted_search_result)
+        return render_template('search.html', results=sorted_search_result, requested=requested_player)
     
     def post(self):
         requested_player = request.form['query']

@@ -18,7 +18,6 @@ class Draft(MethodView):
     def get(self):
         model = gbmodel.get_model()
         entries = model.select_draft(collection_name, len(draft_res))
-        print (type(entries))
         return render_template('draft.html', draft_board=entries)
     
     def post(self):

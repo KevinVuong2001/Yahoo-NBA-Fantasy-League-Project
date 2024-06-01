@@ -1,51 +1,56 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>Player Search</h2>
-    <h3>Search player by name</h3>
+    <h1 class="text-center">Player Search</h2>
+    <h2 class="mx-2">Search Player By Name</h3>
     <form action="{{ url_for('search') }}" method="POST">
-        <input type="text" name="query" placeholder="Enter player name">
+        <input class="mx-3" type="text" name="query" placeholder="Enter player name">
         <button type="submit">Search</button>
     </form>
-    <table>
-        <tr>
-            <th>Name </th>
-            <th>Team </th>
-            <th>Primary Position </th>
-            <th>Eligible Position</th>
-            <th>FG% </th>
-            <th>FT% </th>
-            <th>3PTM </th>
-            <th>PTS </th>
-            <th>REB </th>
-            <th>AST </th>
-            <th>ST </th>
-            <th>BLK </th>
-            <th>TO </th>
-            <th>Percent Owned</th>
-            <th>Available/Taken</th>
-        </tr>
-        {% for player in results %}
+    <h3 class="mt-5 mx-2">Results: {{ requested }}</h3>
+    <table id="ResultTable" class="table table-bordered table-hover table-striped mt-4">
+        <thead>
             <tr>
-                <td>{{ player }}</td>
-                <td>{{ results[player]['team'] }}</td>
-                <td>{{ results[player]['primary_position'] }}</td>
-                <td>{{ results[player]['eligible_position'] }}</td>
-                <td>{{ results[player]['FG'] }}</td>
-                <td>{{ results[player]['FT'] }}</td>
-                <td>{{ results[player]['3PTM'] }}</td>
-                <td>{{ results[player]['PTS'] }}</td>
-                <td>{{ results[player]['REB'] }}</td>
-                <td>{{ results[player]['AST'] }}</td>
-                <td>{{ results[player]['ST'] }}</td>
-                <td>{{ results[player]['BLK'] }}</td>
-                <td>{{ results[player]['TO'] }}</td>
-                {% if 'percent_own' in results[player] %}
-                    <td>{{ results[player]['percent_own'] }}</td>
-                {% else %}
-                    <td>0</td>
-                {% endif %}
-                <td>{{ results[player]['status'] }}</td>
+                <th class="sortable">Name </th>
+                <th class="sortable">Team </th>
+                <th class="sortable">Primary Position </th>
+                <th class="sortable">Eligible Position</th>
+                <th class="sortable">FG% </th>
+                <th class="sortable">FT% </th>
+                <th class="sortable">3PTM </th>
+                <th class="sortable">PTS </th>
+                <th class="sortable">REB </th>
+                <th class="sortable">AST </th>
+                <th class="sortable">ST </th>
+                <th class="sortable">BLK </th>
+                <th class="sortable">TO </th>
+                <th class="sortable">Percent Owned</th>
+                <th class="sortable">Available/Taken</th>
             </tr>
-        {% endfor %}
+        </thead>
+        <tbody>
+            {% for player in results %}
+                <tr>
+                    <td>{{ player }}</td>
+                    <td>{{ results[player]['team'] }}</td>
+                    <td>{{ results[player]['primary_position'] }}</td>
+                    <td>{{ results[player]['eligible_position'] }}</td>
+                    <td class="number">{{ results[player]['FG'] }}</td>
+                    <td class="number">{{ results[player]['FT'] }}</td>
+                    <td class="number">{{ results[player]['3PTM'] }}</td>
+                    <td class="number">{{ results[player]['PTS'] }}</td>
+                    <td class="number">{{ results[player]['REB'] }}</td>
+                    <td class="number">{{ results[player]['AST'] }}</td>
+                    <td class="number">{{ results[player]['ST'] }}</td>
+                    <td class="number">{{ results[player]['BLK'] }}</td>
+                    <td class="number">{{ results[player]['TO'] }}</td>
+                    {% if 'percent_own' in results[player] %}
+                        <td class="number">{{ results[player]['percent_own'] }}</td>
+                    {% else %}
+                        <td class="number">0</td>
+                    {% endif %}
+                        <td>{{ results[player]['status'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 {% endblock %}
