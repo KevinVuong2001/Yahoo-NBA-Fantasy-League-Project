@@ -25,7 +25,7 @@ class Free_Agent(MethodView):
         for entry in entries:
             player_entries = entry['players']
         sorted_player_entries = sorted(player_entries, key=lambda x: x['percent_own'], reverse=True)    
-        return render_template('free_agent.html', positions=positions, player_entries=sorted_player_entries)
+        return render_template('free_agent.html', positions=positions, player_entries=sorted_player_entries, requested=requested_position)
     
     def post(self):
         requested_position = request.form.getlist('position[]')

@@ -1,45 +1,52 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>Free Agency</h2>
-    <h3>Filter</h3>
+    <h1 class="text-center">Free Agency</h2>
+    <h2 class="mx-2">Filter</h3>
     <form action="{{ url_for('free_agent') }}" method=post>
         {% for position in positions %}
-        <input type="checkbox" name="position[]" value="{{ position }}"> {{ position }} <br>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="position[]" value="{{ position }}"> {{ position }} <br>
+        </div>
         {% endfor %}
         <button type="submit">Submit</button>
     </form>
-    <table>
-    <tr>
-        <th>Name </th>
-        <th>Primary Position </th>
-        <th>Eligible Position</th>
-        <th>FG% </th>
-        <th>FT% </th>
-        <th>3PTM </th>
-        <th>PTS </th>
-        <th>REB </th>
-        <th>AST </th>
-        <th>ST </th>
-        <th>BLK </th>
-        <th>TO </th>
-        <th>Percent Owned</th>
-    </tr>
-        {% for player in player_entries %}
+    <h3 class="mt-5 mx-2">Results: {{ requested }}</h3>
+    <table id="FreeAgentTable" class="table table-bordered table-hover table-striped mt-4">
+        <thead>
             <tr>
-                <td>{{ player['name'] }}</td>
-                <td>{{ player['primary_position'] }}</td>
-                <td>{{ player['eligible_position'] }}</td>
-                <td>{{ player['FG'] }}</td>
-                <td>{{ player['FT'] }}</td>
-                <td>{{ player['3PTM'] }}</td>
-                <td>{{ player['PTS'] }}</td>
-                <td>{{ player['REB'] }}</td>
-                <td>{{ player['AST'] }}</td>
-                <td>{{ player['ST'] }}</td>
-                <td>{{ player['BLK'] }}</td>
-                <td>{{ player['TO'] }}</td>
-                <td>{{ player['percent_own'] }}</td>
+                <th class="sortable">Name </th>
+                <th class="sortable">Primary Position </th>
+                <th class="sortable">Eligible Position</th>
+                <th class="sortable">FG% </th>
+                <th class="sortable">FT% </th>
+                <th class="sortable">3PTM </th>
+                <th class="sortable">PTS </th>
+                <th class="sortable">REB </th>
+                <th class="sortable">AST </th>
+                <th class="sortable">ST </th>
+                <th class="sortable">BLK </th>
+                <th class="sortable">TO </th>
+                <th class="sortable">Percent Owned</th>
             </tr>
-        {% endfor %}
+        </thead>
+        <tbody>
+            {% for player in player_entries %}
+                <tr>
+                    <td>{{ player['name'] }}</td>
+                    <td>{{ player['primary_position'] }}</td>
+                    <td>{{ player['eligible_position'] }}</td>
+                    <td>{{ player['FG'] }}</td>
+                    <td>{{ player['FT'] }}</td>
+                    <td>{{ player['3PTM'] }}</td>
+                    <td>{{ player['PTS'] }}</td>
+                    <td>{{ player['REB'] }}</td>
+                    <td>{{ player['AST'] }}</td>
+                    <td>{{ player['ST'] }}</td>
+                    <td>{{ player['BLK'] }}</td>
+                    <td>{{ player['TO'] }}</td>
+                    <td>{{ player['percent_own'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 {% endblock %}
