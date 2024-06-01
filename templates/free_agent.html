@@ -1,27 +1,45 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>Fantasy NBA</h2>
-    <h3>Player Stats</h3>
-    <table>
-        <tr>
-            <th>Name </th>
-            <th>Position </th>
-            <th>FG% </th>
-            <th>FT% </th>
-            <th>3PTM </th>
-            <th>PTS </th>
-            <th>REB </th>
-            <th>AST </th>
-            <th>ST </th>
-            <th>BLK </th>
-            <th>TO </th>
-        </tr>
-        <tr>
-        {% for stat in player_stats %}
-            {% for key, value in stat.items() if key != 'player_id' %}
-                    <td>{{ value }}</td>
-            {% endfor %}
+    <h2>Free Agency</h2>
+    <h3>Filter</h3>
+    <form action="{{ url_for('free_agent') }}" method=post>
+        {% for position in positions %}
+        <input type="checkbox" name="position[]" value="{{ position }}"> {{ position }} <br>
         {% endfor %}
-        </tr>
+        <button type="submit">Submit</button>
+    </form>
+    <table>
+    <tr>
+        <th>Name </th>
+        <th>Primary Position </th>
+        <th>Eligible Position</th>
+        <th>FG% </th>
+        <th>FT% </th>
+        <th>3PTM </th>
+        <th>PTS </th>
+        <th>REB </th>
+        <th>AST </th>
+        <th>ST </th>
+        <th>BLK </th>
+        <th>TO </th>
+        <th>Percent Owned</th>
+    </tr>
+        {% for player in player_entries %}
+            <tr>
+                <td>{{ player['name'] }}</td>
+                <td>{{ player['primary_position'] }}</td>
+                <td>{{ player['eligible_position'] }}</td>
+                <td>{{ player['FG'] }}</td>
+                <td>{{ player['FT'] }}</td>
+                <td>{{ player['3PTM'] }}</td>
+                <td>{{ player['PTS'] }}</td>
+                <td>{{ player['REB'] }}</td>
+                <td>{{ player['AST'] }}</td>
+                <td>{{ player['ST'] }}</td>
+                <td>{{ player['BLK'] }}</td>
+                <td>{{ player['TO'] }}</td>
+                <td>{{ player['percent_own'] }}</td>
+            </tr>
+        {% endfor %}
     </table>
 {% endblock %}
