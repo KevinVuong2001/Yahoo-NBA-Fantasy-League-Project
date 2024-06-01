@@ -2,18 +2,18 @@
 <html>
 <title>My Fantasy NBA</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 <body>
-    <div class="header">
-        <h1>Welcome to My Fantasy NBA</h1>
-        <div class="navigation">
-            <a href="{{ url_for('index') }}" class="button">Home</a>
+    <nav class="site-header sticky-top py-1 bg-dark">
+        <div class="container d-flex flex-column flex-md-row justify-content-between">
+            <a class="py-2 d-none d-md-inline-block text-white nav-link" href="{{ url_for('index') }}">Home</a>
             <form action="{{ url_for('draft') }}" method="POST">
-                <button type="submit" class="button">Draft</button>
+                <button type="submit" class="nav-button text-white py-2 d-none d-md-inline-block">Draft</button>
             </form>
-            <a href="{{ url_for('free_agent') }}" class="button">Free Agent</a>
-            <a href="{{ url_for('search') }}" class="button">Search Player</a>
+            <a class="py-2 d-none d-md-inline-block text-white nav-link" href="{{ url_for('free_agent') }}">Free Agent</a>
+            <a class="py-2 d-none d-md-inline-block text-white nav-link" href="{{ url_for('search') }}">Search Player</a>
         </div>
-    </div>
+    </nav>
     <div class=page>
         {% block content %}{% endblock %}
     </div>

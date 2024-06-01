@@ -1,61 +1,86 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>Fantasy NBA</h2>
-    <h3>League's Stat Category (collapsible)</h3>
-    <ul>
-        <li>FG%: Shots Made / Number of Attempts</li>
-        <li>FT%: Free Throws Made / Free Throws Attempt</li>
-        <li>3PTM: Three points made</li>
-        <li>PTS: Points</li>
-        <li>REB: Rebounds</li>
-        <li>AST: Assists</li>
-        <li>ST: Steals</li>
-        <li>BLK: Blocks</li>
-        <li>TO: Turnovers</li>
-    </ul>
-    <h3>Standings</h3>
-    <table>
-        <tr>
-            <th>Playoffs Ranks</th>
-            <th>Regular Season Ranks</th>
-            <th>Team</th>
-            <th>Wins</th>
-            <th>Losses</th>
-            <th>Ties</th>
-            <th>Win %</th>
-            <th>Games Back</th>
-        </tr>
-        {% for team in standings %}
-            <tr>
-                <td>{{ standings[team]['final_rank'] }} </td>
-                <td>{{ standings[team]['regular_rank'] }}</td>
-                <td>{{ team }}</td>
-                <td>{{ standings[team]['wins'] }}</td>
-                <td>{{ standings[team]['losses'] }}</td>
-                <td>{{ standings[team]['ties'] }}</td>
-                <td>{{ standings[team]['win_percent'] }}</td>
-                <td>{{ standings[team]['games_back'] }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    <h3>Recent Added/Dropped Players</h3>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Status</th>
-            <th>Source</th>
-            <th>Destination</th>
-        </tr>
-        {% for recent in recent_five %}
-            <tr>
-                <td>{{ recent['name'] }}</td>
-                <td>{{ recent['position'] }}</td>
-                <td>{{ recent['status'] }}</td>
-                <td>{{ recent['source'] }}</td>
-                <td>{{ recent['destination'] }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
+    <h2 class="mb-4">Fantasy NBA Homepage</h2>
+    <div class ="container">
+        <div class="row justify-content-center"
+            <div class="col-md-8">
+                <h3 class="text-center mb-4">League's Stat Category</h3>
+                <ul class="list-unstyled text-center">
+                    <li><strong>FG%: </strong> Shots Made / Number of Attempts</li>
+                    <li><strong>FT%: </strong> Free Throws Made / Free Throws Attempt</li>
+                    <li><strong>3PTM: </strong> Three points made</li>
+                    <li><strong>PTS: </strong> Points</li>
+                    <li><strong>REB: </strong> Rebounds</li>
+                    <li><strong>AST: </strong> Assists</li>
+                    <li><strong>ST: </strong>Steals</li>
+                    <li><strong>BLK: </strong> Blocks</li>
+                    <li><strong>TO: </strong> Turnovers</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="table-responsive">
+                    <h3 class="text-center mb-4">Standings</h3>
+                    <table class="table table-bordered table-hover table-striped mb-4">
+                        <thead>
+                            <tr>
+                                <th>Playoffs Ranks</th>
+                                <th>Regular Season Ranks</th>
+                                <th>Team</th>
+                                <th>Wins</th>
+                                <th>Losses</th>
+                                <th>Ties</th>
+                                <th>Win %</th>
+                                <th>Games Back</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for team in standings %}
+                                <tr>
+                                    <td>{{ standings[team]['final_rank'] }} </td>
+                                    <td>{{ standings[team]['regular_rank'] }}</td>
+                                    <td>{{ team }}</td>
+                                    <td>{{ standings[team]['wins'] }}</td>
+                                    <td>{{ standings[team]['losses'] }}</td>
+                                    <td>{{ standings[team]['ties'] }}</td>
+                                    <td>{{ standings[team]['win_percent'] }}</td>
+                                    <td>{{ standings[team]['games_back'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <h3 class="text-center mb-4">Recent Added/Dropped Players</h3>
+                    <table class="table table-bordered table-hover table-striped mb-4">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Status</th>
+                                <th>Source</th>
+                                <th>Destination</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for recent in recent_five %}
+                                <tr>
+                                    <td>{{ recent['name'] }}</td>
+                                    <td>{{ recent['position'] }}</td>
+                                    <td>{{ recent['status'] }}</td>
+                                    <td>{{ recent['source'] }}</td>
+                                    <td>{{ recent['destination'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,0 +1,20 @@
+.nav-link,
+.nav-button {
+    text-decoration: none; /* Remove underline from links */
+    border: none; /* Remove button border */
+    cursor: pointer; /* Show pointer cursor on hover */
+    padding: 0.5rem 1rem;
+}
+
+.nav-button {
+    background-color: #212529
+}
+
+.nav-link:hover {
+    background-color: #0056b3; /* Change background color on hover */
+}
+
+.nav-button:hover {
+    background-color: #0056b3; /* Change background color of button on hover */
+    transition: 0.7s
+}
