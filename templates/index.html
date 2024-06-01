@@ -1,27 +1,61 @@
 {% extends "layout.html" %}
 {% block content %}
     <h2>Fantasy NBA</h2>
-    <h3>Player Stats</h3>
+    <h3>League's Stat Category (collapsible)</h3>
+    <ul>
+        <li>FG%: Shots Made / Number of Attempts</li>
+        <li>FT%: Free Throws Made / Free Throws Attempt</li>
+        <li>3PTM: Three points made</li>
+        <li>PTS: Points</li>
+        <li>REB: Rebounds</li>
+        <li>AST: Assists</li>
+        <li>ST: Steals</li>
+        <li>BLK: Blocks</li>
+        <li>TO: Turnovers</li>
+    </ul>
+    <h3>Standings</h3>
     <table>
         <tr>
-            <th>Name </th>
-            <th>Position </th>
-            <th>FG% </th>
-            <th>FT% </th>
-            <th>3PTM </th>
-            <th>PTS </th>
-            <th>REB </th>
-            <th>AST </th>
-            <th>ST </th>
-            <th>BLK </th>
-            <th>TO </th>
+            <th>Playoffs Ranks</th>
+            <th>Regular Season Ranks</th>
+            <th>Team</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Ties</th>
+            <th>Win %</th>
+            <th>Games Back</th>
         </tr>
-        <tr>
-        {% for stat in player_stats %}
-            {% for key, value in stat.items() if key != 'player_id' %}
-                    <td>{{ value }}</td>
-            {% endfor %}
+        {% for team in standings %}
+            <tr>
+                <td>{{ standings[team]['final_rank'] }} </td>
+                <td>{{ standings[team]['regular_rank'] }}</td>
+                <td>{{ team }}</td>
+                <td>{{ standings[team]['wins'] }}</td>
+                <td>{{ standings[team]['losses'] }}</td>
+                <td>{{ standings[team]['ties'] }}</td>
+                <td>{{ standings[team]['win_percent'] }}</td>
+                <td>{{ standings[team]['games_back'] }}</td>
+            </tr>
         {% endfor %}
-        </tr>
     </table>
+    <h3>Recent Added/Dropped Players</h3>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Status</th>
+            <th>Source</th>
+            <th>Destination</th>
+        </tr>
+        {% for recent in recent_five %}
+            <tr>
+                <td>{{ recent['name'] }}</td>
+                <td>{{ recent['position'] }}</td>
+                <td>{{ recent['status'] }}</td>
+                <td>{{ recent['source'] }}</td>
+                <td>{{ recent['destination'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
 {% endblock %}

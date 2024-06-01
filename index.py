@@ -3,16 +3,57 @@ from flask.views import MethodView
 from yahoo_oauth import OAuth2
 import yahoo_fantasy_api as yfa 
 
+# Connect to Yahoo API
+sc = OAuth2(None, None, from_file='oauth2.json')
+gm = yfa.Game(sc, 'nba')
+# Get league ID
+leagues = gm.league_ids()
+lg = gm.to_league(leagues[0])
+
 class Index(MethodView):
     def get(self):
-        # Get player stats
-        # Connect to Yahoo API
-        sc = OAuth2(None, None, from_file='oauth2.json')
-        gm = yfa.Game(sc, 'nba')
-        # Get league ID
-        leagues = gm.league_ids()
-        lg = gm.to_league(leagues[0])
-        player_stats = lg.player_stats([5352], 'average_season')
-        player_position = lg.player_details([5352])
-        player_stats[0]["position_type"] = player_position[0]['primary_position']
-        return render_template('index.html', player_stats=player_stats)
+        # Getting the standings portion
+        standings = lg.standings()
+        team_standings = {}
+        for s in standings:
+            team_name = s['name']
+            regular_rank = s['playoff_seed']
+            final_rank = s['rank']
+            wins = s['outcome_totals']['wins']
+            losses = s['outcome_totals']['losses']
+            ties = s['outcome_totals']['ties']
+            win_percent = s['outcome_totals']['percentage']
+            games_back = s['games_back']
+            team_standings[team_name] = {
+                'regular_rank': regular_rank,
+                'final_rank': final_rank,
+                'wins': wins,
+                'losses': losses,
+                'ties': ties,
+                'win_percent': win_percent,
+                'games_back': games_back
+            }
+        # Getting the 5 recent add/drops
+        transaction = lg.transactions('add', 5)
+        recent_five = []
+        for t in transaction:
+            player_name = t['players']['0']['player'][0][2]['name']['full']
+            position = t['players']['0']['player'][0][4]['display_position']
+            status = t['type']
+            source = t['players']['0']['player'][1]['transaction_data']
+            source_team = ""
+            destination_team = ""
+            if 'source_type' in source:
+                source_team = source['source_team_name']
+                destination_team = "Free Agents"
+            else:
+                source_team = "Free Agents"
+                destination_team = source[0]['destination_team_name']
+            recent_five.append({
+                'name': player_name, 
+                'position': position,
+                'status': status, 
+                'source': source_team, 
+                'destination': destination_team})
+        return render_template('index.html', standings=team_standings, recent_five=recent_five)
+
