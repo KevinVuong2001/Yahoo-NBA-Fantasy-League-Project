@@ -9,6 +9,7 @@
     <table>
         <tr>
             <th>Name </th>
+            <th>Team </th>
             <th>Primary Position </th>
             <th>Eligible Position</th>
             <th>FG% </th>
@@ -21,10 +22,12 @@
             <th>BLK </th>
             <th>TO </th>
             <th>Percent Owned</th>
+            <th>Available/Taken</th>
         </tr>
         {% for player in results %}
             <tr>
                 <td>{{ player }}</td>
+                <td>{{ results[player]['team'] }}</td>
                 <td>{{ results[player]['primary_position'] }}</td>
                 <td>{{ results[player]['eligible_position'] }}</td>
                 <td>{{ results[player]['FG'] }}</td>
@@ -41,6 +44,7 @@
                 {% else %}
                     <td>0</td>
                 {% endif %}
+                <td>{{ results[player]['status'] }}</td>
             </tr>
         {% endfor %}
     </table>
