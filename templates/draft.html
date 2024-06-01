@@ -1,27 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>Fantasy NBA</h2>
-    <h3>Draft Board</h3>
-    <table>
-        <tr>
-            <th>Name </th>
-            <th>Position </th>
-            <th>FG% </th>
-            <th>FT% </th>
-            <th>3PTM </th>
-            <th>PTS </th>
-            <th>REB </th>
-            <th>AST </th>
-            <th>ST </th>
-            <th>BLK </th>
-            <th>TO </th>
-        </tr>
-        <tr>
-        {% for stat in player_stats %}
-            {% for key, value in stat.items() if key != 'player_id' %}
-                    <td>{{ value }}</td>
+    <h2>Draft Board</h2>
+    {% for round_number, round_data in draft_board.items() %}
+        <h3>Round {{ round_number }}</h3>
+        <table>
+            <tr>
+                <th>Pick #</th>
+                <th>Player</th>
+                <th>Team</th>
+                <th>Percent Owned</th>
+            </tr>
+            {% for pick_number, pick_data in round_data.items() %}
+                <tr>
+                    <td>{{ pick_number }}</td>
+                    <td>{{ pick_data[0] }}</td>
+                    <td>{{ pick_data[1] }}</td>
+                    <td>{{ pick_data[2] }}</td>
+                </tr>
             {% endfor %}
-        {% endfor %}
-        </tr>
-    </table>
+        </table>
+    {% endfor %}
+    <p>{{ entries }}</p>
 {% endblock %}
+
