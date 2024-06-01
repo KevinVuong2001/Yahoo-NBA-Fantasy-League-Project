@@ -3,38 +3,29 @@ from flask.views import MethodView
 from yahoo_oauth import OAuth2
 import yahoo_fantasy_api as yfa 
 import gbmodel
+import time
+
+# Connect to Yahoo API
+sc = OAuth2(None, None, from_file='oauth2.json')
+gm = yfa.Game(sc, 'nba')
+# Get league ID
+leagues = gm.league_ids()
+lg = gm.to_league(leagues[0])
+collection_name = leagues[0] + '-Draft'
+draft_res = lg.draft_results()
 
 class Draft(MethodView):
     def get(self):
         model = gbmodel.get_model()
-        # Connect to Yahoo API
-        sc = OAuth2(None, None, from_file='oauth2.json')
-        gm = yfa.Game(sc, 'nba')
-        # Get league ID
-        leagues = gm.league_ids()
-        lg = gm.to_league(leagues[0])
-        collection_name = leagues[0] + '-Draft'
-        draft_res = lg.draft_results()
-
         entries = model.select_draft(collection_name, len(draft_res))
-
+        print (type(entries))
         return render_template('draft.html', draft_board=entries)
     
     def post(self):
-        # Connect to Yahoo API
-        sc = OAuth2(None, None, from_file='oauth2.json')
-        gm = yfa.Game(sc, 'nba')
-        # Get league ID
-        leagues = gm.league_ids()
-        lg = gm.to_league(leagues[0])
-
         # Create a dictionary where each key will be the rounds
         picks_by_round = {}
         tms = lg.teams()
-        draft_res = lg.draft_results()
-
         model = gbmodel.get_model()
-        collection_name = leagues[0] + '-Draft'
         expected_count = 13;
 
         if not model.if_draft_exist(collection_name, expected_count):
