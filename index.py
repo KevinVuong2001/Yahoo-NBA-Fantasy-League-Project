@@ -1,3 +1,10 @@
+"""
+Homepage:
+    - Displays the stats category that the league is using
+    - Displays the standings
+    - Displays the recent transactions
+"""
+
 from flask import render_template
 from flask.views import MethodView
 from fantasy_data import lg

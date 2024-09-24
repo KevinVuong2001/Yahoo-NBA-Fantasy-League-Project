@@ -1,3 +1,8 @@
+"""
+Purpose of this file is to connect to the league
+and providing variables for certain web pages
+"""
+
 from oauth import sc
 import yahoo_fantasy_api as yfa 
 

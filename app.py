@@ -1,5 +1,6 @@
 """
-A flask fantasy nba app where the user could see their fantasy nba league that includes draft board, free agents, and waivers
+A flask fantasy yahoo nba app where the user could see their fantasy nba league that includes draft board, free agents,
+and have the ability to search for a player
 """
 import flask
 from flask.views import MethodView

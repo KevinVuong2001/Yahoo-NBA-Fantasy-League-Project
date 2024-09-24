@@ -7,6 +7,10 @@ class model(Model):
         self.client = firestore.Client()
 
     def select_draft(self, collection_name, total_draft):
+        """
+        Getting the draft information for all rounds
+            - return: list of dictionary
+        """
         rounds = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"]
         draft_board = {}
         for round in rounds:
@@ -18,6 +22,10 @@ class model(Model):
         return draft_board
     
     def select_agent(self, collection_name, requested):
+        """
+        Getting the free agents information for a certain position based on user request
+            - return: list of dictionary
+        """
         data_list = []
         for id in requested:
             agent_ref = self.client.collection(collection_name).document(id)
@@ -27,6 +35,15 @@ class model(Model):
         return data_list
 
     def insert_draft(self, collection_name, round, picks):
+        """
+        Insert an array of players that was selected by a certain round
+        The document id is the round (1-13)
+        It will insert draft info:
+            - pick number
+            - player
+            - team that selected them
+            - percent own
+        """
         draft_ref = self.client.collection(collection_name).document(str(round))
         data = {}
         for pick in picks:
@@ -39,6 +56,14 @@ class model(Model):
         return True
 
     def insert_agent(self, collection_name, position, players):
+        """
+        Insert the agent in a document which its id will be the position (PG, SG, SF, PF, C)
+        It will insert each player data:
+            - name
+            - percent own
+            - positions (primary and eligible)
+            - stats
+        """
         agent_ref = self.client.collection(collection_name).document(position)
         player_data = []
         for player in players:
@@ -76,6 +101,11 @@ class model(Model):
         return True
 
     def if_draft_exist (self, collection_name, expected_count):
+        """
+        Check if there's a certain amount of documents
+            - used as an indicator if we need to write to Firestore Database or not
+            - return True or False
+        """
         collection_ref = self.client.collection(collection_name)
         docs = collection_ref.stream()
         document_count = sum (1 for _ in docs)
@@ -85,6 +115,10 @@ class model(Model):
             return False
 
     def if_free_agent_exist(self, collection_name, requested):
+        """
+        Check if we have that certain document id (position)
+            - Return what positions we need to write into the Firestore Database
+        """
         need_data = []
         for id in requested:
             doc_ref = self.client.collection(collection_name).document(id)
@@ -94,3 +128,4 @@ class model(Model):
             else:
                 need_data.append(id)
         return need_data
+

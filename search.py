@@ -1,3 +1,9 @@
+"""
+This part of the code handles the search endpoint
+It will display the results based on the user's input on player name
+It will display the stats, team, position, etc.
+"""
+
 from flask import render_template, redirect, url_for, redirect, request, session
 from flask.views import MethodView
 import gbmodel

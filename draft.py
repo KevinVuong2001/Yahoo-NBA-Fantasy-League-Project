@@ -1,3 +1,9 @@
+"""
+This part of the code handles the draft endpoint
+It will consist of displaying the draft board for the league
+In addition, it will return information like rounds, picks, players, team selected and percent own
+"""
+
 from flask import render_template, redirect, url_for, redirect
 from flask.views import MethodView
 import gbmodel

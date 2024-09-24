@@ -1,3 +1,9 @@
+"""
+This part of the code handles the free_agent endpoint
+It will consist of displaying the free agents based on the user's request of position
+In addition, showing their stats
+"""
+
 from flask import render_template, redirect, url_for, redirect, request, session
 from flask.views import MethodView
 import gbmodel
