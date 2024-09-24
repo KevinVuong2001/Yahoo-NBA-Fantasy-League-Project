@@ -1,14 +1,6 @@
 from flask import render_template
 from flask.views import MethodView
-from yahoo_oauth import OAuth2
-import yahoo_fantasy_api as yfa 
-
-# Connect to Yahoo API
-sc = OAuth2(None, None, from_file='oauth2.json')
-gm = yfa.Game(sc, 'nba')
-# Get league ID
-leagues = gm.league_ids()
-lg = gm.to_league(leagues[0])
+from fantasy_data import lg
 
 class Index(MethodView):
     def get(self):

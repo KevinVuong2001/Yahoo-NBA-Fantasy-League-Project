@@ -1,18 +1,7 @@
 from flask import render_template, redirect, url_for, redirect, request, session
 from flask.views import MethodView
-from yahoo_oauth import OAuth2
-import yahoo_fantasy_api as yfa 
 import gbmodel
-import time
-
-sc = OAuth2(None, None, from_file='oauth2.json')
-gm = yfa.Game(sc, 'nba')
-# Get league ID
-leagues = gm.league_ids()
-lg = gm.to_league(leagues[0])
-collection_name = leagues[0] + '-Free_Agent'
-positions = ['PG', 'SG', 'SF', 'PF', 'C']
-
+from fantasy_data import lg, agent_collection_name, positions
 
 class Free_Agent(MethodView):
     def get(self):
@@ -20,10 +9,11 @@ class Free_Agent(MethodView):
         model = gbmodel.get_model()
         entries = []
         if type(requested_position) == list:
-            entries = model.select_agent(collection_name, requested_position)
+            entries = model.select_agent(agent_collection_name, requested_position)
         player_entries = {}
         for entry in entries:
-            player_entries = entry['players']
+            if entry is not None:
+                player_entries = entry['players']
         sorted_player_entries = sorted(player_entries, key=lambda x: x['percent_own'], reverse=True)    
         return render_template('free_agent.html', positions=positions, player_entries=sorted_player_entries, requested=requested_position)
     
@@ -32,7 +22,7 @@ class Free_Agent(MethodView):
         model = gbmodel.get_model()
         list_agents = {}
         position_agents_info = {}
-        need_data = model.if_free_agent_exist(collection_name, requested_position)
+        need_data = model.if_free_agent_exist(agent_collection_name, requested_position)
         if len(need_data) > 0: #If there's data that's need to be added to database
             for position in need_data:
                 list_agents[position] = lg.free_agents(position) #Get the list of free agents based on position
@@ -67,6 +57,6 @@ class Free_Agent(MethodView):
                         })
                 for key, players in position_agents_info.items():
                     print ("Position: ", key)
-                    model.insert_agent(collection_name, key, players)
+                    model.insert_agent(agent_collection_name, key, players)
         session['requested_position'] = requested_position
         return redirect(url_for('free_agent'))

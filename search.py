@@ -1,21 +1,9 @@
 from flask import render_template, redirect, url_for, redirect, request, session
 from flask.views import MethodView
-from yahoo_oauth import OAuth2
-import yahoo_fantasy_api as yfa 
 import gbmodel
+from fantasy_data import lg, taken_players_id
 
-# Connect to Yahoo API
-sc = OAuth2(None, None, from_file='oauth2.json')
-gm = yfa.Game(sc, 'nba')
-# Get league ID
-leagues = gm.league_ids()
-lg = gm.to_league(leagues[0])
 taken_players = lg.taken_players()
-
-# Get all taken players
-taken_players_id = []
-for i in taken_players:
-    taken_players_id.append(i['player_id'])
 
 def is_player_taken(player_id):
     if int(player_id) in taken_players_id:
