@@ -2,20 +2,20 @@ class Model():
     def select_draft(self, collection_name, total_draft):
         """
         Get all entries from the database
-        :return: Tuple containing all rows of database
+        :return: List of dictionaries of all draft players
         """
         pass
 
     def select_agent(self, collection_name, total_agent):
         """
         Get all free agent entries from the database
-        :return: Tuple containing all rows of database
+        :return: List of dictionaries of all free agents
         """
         pass
 
     def insert_draft (self, collection_name, round, picks):
         """
-        Inserts entry into the database
+        Inserts round entry of players into the database
         :return: none
         :raises: Database errors on connection and insertion
         """
