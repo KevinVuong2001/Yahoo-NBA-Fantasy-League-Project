@@ -9,7 +9,7 @@ When running the app.py
     - exporting ENV Variables:
         * YAHOO_CONSUMER_KEY=client_id
         * YAHOO_CONSUMER_SECRET=client_secret
-    - gcloud config set project cloud-vuong-kvuong
+    - gcloud config set project {GOOGLE_CLOUD_PROJECT}
 
 Cloud Run
     - gcloud builds submit --timeout=900 --tag gcr.io/${GOOGLE_CLOUD_PROJECT}/gcp_gb
