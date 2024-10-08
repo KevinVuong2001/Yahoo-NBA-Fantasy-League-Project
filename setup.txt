@@ -1,0 +1,27 @@
+Setting up IAM Service Account
+    - gcloud iam service-accounts create fantasynba
+    - gcloud projects add-iam-policy-binding ${GOOGLE_CLOUD_PROJECT}   --member serviceAccount:fantasynba@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com   --role roles/datastore.user
+    - gcloud projects add-iam-policy-binding ${GOOGLE_CLOUD_PROJECT}   --member serviceAccount:fantasynba@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com   --role roles/storage.objectViewer
+    - gcloud iam service-accounts keys create fantasynba-key.json --iam-account=fantasynba@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com
+    - export GOOGLE_APPLICATION_CREDENTIALS=/tmp/fantasynba-key.json
+
+When running the app.py
+    - exporting ENV Variables:
+        * YAHOO_CONSUMER_KEY=client_id
+        * YAHOO_CONSUMER_SECRET=client_secret
+    - gcloud config set project cloud-vuong-kvuong
+
+Cloud Run
+    - gcloud builds submit --timeout=900 --tag gcr.io/${GOOGLE_CLOUD_PROJECT}/gcp_gb
+    - gcloud run deploy final \
+        --image gcr.io/${GOOGLE_CLOUD_PROJECT}/gcp_gb \
+        --service-account nbafantasy@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
+        --set-env-vars YAHOO_CONSUMER_KEY={KEY},YAHOO_CONSUMER_SECRET={SECRET} \
+        --port=5000 \
+        --project cloud-vuong-kvuong
+
+Running Locally:
+    - python3 -m venv env
+    - source env/bin/activate
+    - pip install -r requirements.txt
+    - python3 app.py
